@@ -5,6 +5,7 @@ import DetailRowView from "./components/detail-row-view/detail-row-view";
 import MainTable from "./components/main-table/main-table.component";
 import Loader from "./components/loader/loader.component";
 import DataSizeSelector from "./components/data-size-selector/data-size-selector";
+import AddUserForm from './components/add-user-form/add-user-form';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import _ from "lodash";
@@ -73,8 +74,10 @@ class App extends React.Component {
       return users
     }
 
-    return users.filter(item => {
-      return item['firstName'].toLowerCase().includes(search.toLowerCase())
+    return users.filter(user => {
+      return user['firstName'].toLowerCase().includes(search.toLowerCase())
+            || user['lastName'].toLowerCase().includes(search.toLowerCase())
+            || user['email'].toLowerCase().includes(search.toLowerCase())
     })
   }
 
@@ -105,6 +108,7 @@ class App extends React.Component {
           <Loader></Loader>
         ) : (
           <React.Fragment>
+            <AddUserForm/>
             <TableSearch onSearch={this.searchHandler}/>
             <MainTable
             users={displayData}
